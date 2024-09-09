@@ -1,6 +1,6 @@
 # discordbot
 
-The official Discord bot for The Art of Tech: Not Playing With A Full Tech
+The official Discord bot for gbowne1 discord server
 
 ## Building
 
