@@ -1,0 +1,5 @@
+disnake
+flask
+pre-commit
+python-decouple
+cogs

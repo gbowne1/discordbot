@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  bot:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    container_name: taotnpwaft
