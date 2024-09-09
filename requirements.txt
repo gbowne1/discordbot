@@ -3,3 +3,4 @@ flask
 pre-commit
 python-decouple
 cogs
+python-dotenv
