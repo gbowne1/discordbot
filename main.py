@@ -1,5 +1,3 @@
-# bot.py
-
 import os
 import logging
 from typing import Optional
@@ -47,8 +45,8 @@ class DiscordBot(commands.Bot):
         logger.info(f"{member} has joined the server.")
         try:
             await member.send(f"Welcome, {member.mention}!")
-        except disnake.HTTPException:
-            logger.warning(f"Failed to send welcome message to {member}")
+        except disnake.HTTPException as e:
+            logger.warning(f"Failed to send welcome message to {member}: {e}")
 
     async def update_member_count(self):
         while True:
@@ -58,8 +56,8 @@ class DiscordBot(commands.Bot):
             try:
                 await member_count_channel.edit(name=f"Members: {guild.member_count}")
                 logger.info(f"Updated member count to {guild.member_count}")
-            except disnake.HTTPException:
-                logger.warning("Failed to update member count")
+            except disnake.HTTPException as e:
+                logger.warning(f"Failed to update member count: {e}")
             
             await asyncio.sleep(60)  # Wait for 1 minute before updating again
 
