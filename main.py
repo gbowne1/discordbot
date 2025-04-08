@@ -1,54 +1,107 @@
+"""
+Main module for the Discord bot.
+"""
+
 import os
 import logging
+import asyncio
 from typing import Optional
 import disnake
 from disnake.ext import commands
 from dotenv import load_dotenv
-import asyncio
 
 load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-logger = logging.getLogger(__name__)
 
 class Secrets:
+    """
+    A class to handle secrets and environment variables.
+    """
     @staticmethod
     def get_token() -> Optional[str]:
+        """
+        Retrieves the Discord bot token from environment variables.
+        """
         return os.getenv("DISCORD_TOKEN")
 
     @classmethod
     def check_env(cls) -> bool:
+        """
+        Checks if the required environment variables are set.
+        """
         token = cls.get_token()
         if not token:
-            logger.error("Environment variable 'DISCORD_TOKEN' is missing")
+            logger.error("DISCORD_TOKEN is not set in environment variables.")
             return False
         return True
+    """
+    def get_token() -> Optional[str]:
+        """
+        Retrieves the Discord bot token from environment variables.
+        """
+    def check_env(cls) -> bool:
+        """
+        Checks if the required environment variables are set.
+        """
+)
+logger = logging.getLogger(__name__)
+
+class DiscordBot(commands.Bot):
+    """
+    Custom Discord bot class with additional functionality.
+    """
+    @staticmethod
+    def get_token() -> Optional[str]:
+    async def on_ready(self):
+        logger.info("%s has connected to Discord!", self.user.name)
+        Event handler for when the bot is ready.
+        """
+
+    @classmethod
+    def check_env(cls) -> bool:
+    async def on_member_join(self, member: disnake.Member):
+        logger.info("%s has joined the server.", member)
+        Event handler for when a member joins the server.
+        """
+        if not token:
+            logger.warning("Failed to send welcome message to %s: %s", member, e)
+            return False
+    async def update_member_count(self):
+        """
+        Periodically updates the member count in a specific channel.
+        """
 
 class DiscordBot(commands.Bot):
     def __init__(self):
-        intents = disnake.Intents.all()
+                logger.info("Updated member count to %d", guild.member_count)
         intents.members = True
-        super().__init__(command_prefix="!", intents=intents)
+                logger.warning("Failed to update member count: %s", e)
 
     async def on_ready(self):
         logger.info(f"{self.user.name} has connected to Discord!")
-        await self.change_presence(activity=disnake.Game(name="with Discord"))
+def load_extensions(bot: commands.Bot):
+    """
+    Loads all extensions (cogs) for the bot.
+    """
         
         # Start background task to update member count every minute
         asyncio.create_task(self.update_member_count())
-
+                logger.info("Loaded extension: %s", cog_name)
     async def on_member_join(self, member: disnake.Member):
-        logger.info(f"{member} has joined the server.")
+                logger.warning("Extension %s not found.", cog_name)
         try:
-            await member.send(f"Welcome, {member.mention}!")
-        except disnake.HTTPException as e:
-            logger.warning(f"Failed to send welcome message to {member}: {e}")
+                logger.error("No entry point found in extension %s.", cog_name)
+            except (commands.ExtensionNotFound, commands.NoEntryPointError, commands.ExtensionFailed) as e:
+                logger.error("Failed to load extension %s: %s", cog_name, e, exc_info=True)
 
-    async def update_member_count(self):
+async def main():
+    """
+    Main entry point for the bot.
+    """
         while True:
             guild = self.get_guild(123456789)  # Replace with your guild ID
             member_count_channel = guild.get_channel(987654321)  # Replace with your channel ID
@@ -59,7 +112,7 @@ class DiscordBot(commands.Bot):
             except disnake.HTTPException as e:
                 logger.warning(f"Failed to update member count: {e}")
             
-            await asyncio.sleep(60)  # Wait for 1 minute before updating again
+        logger.error("An error occurred while running the bot: %s", e, exc_info=True)
 
 def load_extensions(bot: commands.Bot):
     cogs_dir = "./cogs"
