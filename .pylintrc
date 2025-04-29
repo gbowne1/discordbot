@@ -1,0 +1,47 @@
+[MASTER]
+ignore=venv, .venv, __pycache__, build, dist
+extension-pkg-whitelist=disnake
+load-plugins=pylint.extensions.docparams
+
+[MESSAGES CONTROL]
+disable=
+    missing-docstring,
+    invalid-name,
+    too-few-public-methods,
+    too-many-arguments,
+    too-many-instance-attributes,
+    no-member,
+    no-value-for-parameter,
+    unused-argument,
+    broad-except,
+    too-many-branches,
+    too-many-locals
+
+[FORMAT]
+max-line-length=100
+indent-string='    '
+expected-line-ending-format=unix
+
+[TYPECHECK]
+ignored-modules=disnake
+ignored-classes=disnake.ext.commands.Cog, disnake.ext.commands.Bot
+
+[DESIGN]
+max-args=7
+max-locals=25
+max-returns=10
+max-branches=15
+max-statements=50
+
+[REPORTS]
+output-format=colorized
+reports=no
+score=no
+
+[LOGGING]
+logging-modules=logging
+
+[IMPORTS]
+known-standard-library=typing
+known-third-party=disnake,flask,dotenv
+known-first-party=cogs,main,keep_alive

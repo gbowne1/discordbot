@@ -1,10 +1,9 @@
-version: '3'
+version: "3.8"
 
 services:
-  bot:
+  discord-bot:
     build: .
     env_file:
       - .env
-    volumes:
-      - .:/app
-    container_name: taotnpwaft
+    container_name: discord-bot
+    restart: unless-stopped
